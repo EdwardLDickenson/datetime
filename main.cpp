@@ -1,6 +1,7 @@
-#include "DateTimeDependencies.hpp"
-#include "datestamp.hpp"
-#include "LazyTest.hpp"
+//	This library requires LazyTest for unit testing
+#include <lazytest.hpp>
+
+#include "dateStamp.hpp"
 
 void testConsts(TestGroup &group)
 {
@@ -65,24 +66,51 @@ void testConsts(TestGroup &group)
 	group.equal(string("December"), monthsByName[11]);
 
 	group.equal(string("Sunday"), weekdaysByName[0]);
+	group.equal(string("Monday"), weekdaysByName[1]);
+	group.equal(string("Tuesday"), weekdaysByName[2]);
+	group.equal(string("Wednesday"), weekdaysByName[3]);
+	group.equal(string("Thursday"), weekdaysByName[4]);
+	group.equal(string("Friday"), weekdaysByName[5]);
+	group.equal(string("Saturday"), weekdaysByName[6]);
+
+
+}
+
+void testDate(TestGroup &group)
+{
+	dateStamp stamp;
+
+	group.equal(1970, stamp.getYear());
+	group.equal(1, stamp.getMonth());
+	group.equal(1, stamp.getDay());
+	group.equal(19700101, stamp.getDateStamp());
+
+	stamp.setDay(10);
+	group.equal(19700110, stamp.getDateStamp());
+	stamp.setDay(19);
+	group.equal(19700119, stamp.getDateStamp());
+	stamp.setDay(7);
+	group.equal(19700107, stamp.getDateStamp());
+	stamp.setDay(99);
+	group.equal(19700199, stamp.getDateStamp());
+	stamp.setDay(100);
+	group.equal(19700200, stamp.getDateStamp());
 }
 
 int main(int argc, char *argv[])
 {
 	cout << "===\tStarting Program\t===" << endl;
 
-	DateStamp date;
+	dateStamp date;
 
 	TestSuite dateTimeSuite("units.csv");
 	TestGroup dateGroup("Date Stamp");
 	TestGroup constants("Constant Values");
 
+	//	Lookup tables, constants, non-computed values, and compile time values
+	//	not including TMP values.
 	testConsts(constants);
-
-	dateGroup.equal(1970, date.getYear());
-	dateGroup.equal(1, date.getMonth());
-	dateGroup.equal(1, date.getDay());
-	dateGroup.equal(19700101, date.getDateStamp());
+	testDate(dateGroup);
 
 	dateTimeSuite.addGroup(constants);
 	dateTimeSuite.addGroup(dateGroup);
@@ -93,3 +121,8 @@ int main(int argc, char *argv[])
 }
 
 
+
+//	TODO:
+//
+//
+//

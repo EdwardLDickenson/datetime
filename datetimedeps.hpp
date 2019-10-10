@@ -13,6 +13,3 @@
 using namespace std;
 
 #endif	//	DEPS_HPP
-
-
-

@@ -1,0 +1,1 @@
+*	Creatre a TimeStamp class

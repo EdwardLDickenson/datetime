@@ -1,9 +1,8 @@
 #ifndef DATETIMETABLES_HPP
 #define DATETIMETABLES_HPP
 
-#include "DateTimeDependencies.hpp"
+#include "datetimedeps.hpp"
 
-//	These numbers are predefined and constant
 static const int daysInJanuary = 31;
 static const int daysInFebruary = 28;	//	Leap year not accounted for yet
 static const int daysInMarch = 31;
@@ -39,7 +38,7 @@ static const string october = "October";
 static const string november = "November";
 static const string december = "December";
 
-static const string monthsByName[12] = 
+static const string monthsByName[12] =
 									{
 										january, february, march,
 										april, may, june,
@@ -62,6 +61,7 @@ static const string weekdaysByName[7] =
 									};
 
 
+
 #endif	//	DATETIMETABLES_HPP
 
 
@@ -70,5 +70,3 @@ static const string weekdaysByName[7] =
 //
 //
 //
-
-
