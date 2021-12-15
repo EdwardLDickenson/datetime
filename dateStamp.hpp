@@ -11,12 +11,18 @@ class dateStamp
 private:
 	//	Using a signed integer allows for easier AD/BC conversion
 	int stamp;
+	// The date stamp consists of 4 "places" each one 2 characters wide
+	//  1  2  3  4
+	// YY YY MM DD
+	// We can access these places by multiplying or dividing by 100, which is
+	// referred to as the the place offset
+	// It is important to note that the first and second positions are variable
+	// because A.D. 2 is a real year. This should be represented
 
 public:
 	dateStamp();
 	dateStamp(int stmmp);
 	dateStamp(string stmp);
-	dateStamp(dateStamp &stmp);
 
 	int getYear();
 	int getMonth();
@@ -27,21 +33,19 @@ public:
 	void setYear(int year);
 	void setMonth(int month);
 	void setDay(int day);
-	void setYear(string year);
-	void setMonth(string month);
-	void setDay(string day);
-	void setYear(dateStamp &year);
-	void setMonth(dateStamp &month);
-	void setDay(dateStamp &day);
-	void setMonthName(string month);
-	void setWeekday(string day);
+	void setDateStamp(int stmp);
+	void setMonthByName(string month);
 
-	void setYearMonth(int year, int month);
-	void setYearMonthDay(int year, int month, int day);
+	int differenceInYears(dateStamp other);
+	int differenceInMonths(dateStamp other);
+	int differenceInDays(dateStamp other);
 
-	dateStamp addDays(int days);
-	dateStamp addMonths(int months);
-	dateStamp addYears(int years);
+	void addDays(int days);
+	void addMonths(int months);
+	void addYears(int years);
+
+	bool isLeap();
+	bool isLeap(int other);
 };
 
 dateStamp::dateStamp()
@@ -84,28 +88,85 @@ int dateStamp::getDateStamp()
 
 void dateStamp::setDay(int day)
 {
-
-	//	This code is more applicable for the addDays function
-
-	/*day = math.abs(day);
-	int daysInCurrentMonth = numberOfDaysByMonth[getMonth() - 1];
-	int currentDay = getDay();
-
-	if(currentDay + day > daysInCurrentMonth)
-	{
-		cout << "Too big, overflow into the next month(s)"
-	}
-
-	else
-	{
-
-	}*/
-
 	day = abs(day);
 	stamp -= getDay();
 	stamp += day;
 }
 
+void dateStamp::setMonth(int month)
+{
+	if(month > monthsInGregorian)
+	{
+		month = monthsInGregorian;
+	}
+
+	else if(month < 1)
+	{
+		month = 1;
+	}
+
+	// Save the day for later use
+	int day = dateStamp::getDay();
+
+	// Divide the stamp by two place offsets to clear everything upto the year
+	stamp /= 10000;
+	// Multiply the stamp by one place offset so that we can add the month
+	stamp *= 100;
+	// Add the month value to the stamp.
+	stamp += month;
+	// Multiply by a place offset so that we can add the day
+	stamp *= 100;
+	// Add the day to the stamp
+	stamp += day;
+}
+
+void dateStamp::setYear(int year)
+{
+	// The year A.D. 0 does not exist. Whenever a user passes 0 to this function
+	// correct the value to 1.
+	if(year == 0)
+	{
+		year = 1;
+	}
+
+	bool isBC = false;
+	stamp = abs(stamp);
+
+	if(year < 0)
+	{
+		isBC = true;
+		year = abs(year);
+	}
+
+	int month = dateStamp::getMonth();
+	int day = dateStamp::getDay();
+
+	// Assign the stamp to the value of year passed by the user. Then multiply
+	// by two position offsets.
+	stamp = year;
+	stamp *= 100;
+	stamp += month;
+	stamp *= 100;
+	stamp += day;
+
+	if(isBC)
+	{
+		stamp = -stamp;
+	}
+}
+
+
+void dateStamp::addDays(int days)
+{
+	//int year = getYear();
+	//int month = getMonth();
+	//int day = getDay();
+}
+
+int dateStamp::differenceInYears(dateStamp other)
+{
+	return abs(getYear() - other.getYear());
+}
 
 
 #endif	//	DATESTAMP_HPP

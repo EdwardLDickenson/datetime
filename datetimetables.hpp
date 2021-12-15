@@ -3,6 +3,8 @@
 
 #include "datetimedeps.hpp"
 
+static const int monthsInGregorian = 12;
+
 static const int daysInJanuary = 31;
 static const int daysInFebruary = 28;	//	Leap year not accounted for yet
 static const int daysInMarch = 31;
