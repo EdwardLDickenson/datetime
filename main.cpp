@@ -8,7 +8,6 @@
 //
 
 #include <lazytest/lazytest.hpp>
-
 #include "dateStamp.hpp"
 
 void testConsts(TestGroup &group)
@@ -153,36 +152,51 @@ void testYear(TestGroup &group)
 void testStampIntegrity(TestGroup &group)
 {
 	dateStamp stamp;
-
-
 }
 
 void testDifferences(TestGroup &group)
 {
 	dateStamp early;
 	// July 4th, 1999
-	//             yyyymmdd
 	dateStamp late(19990704);
+	dateStamp twelveHundred(12000101);
+	dateStamp twentyTwoHundred(22000101);
+	// January 1st 500BC
+	dateStamp fiveHundredBC(-5000101);
+	// January 1st AD500
+	dateStamp adFiveHundred(5000101);
+	dateStamp jan(19700101);
+	dateStamp mar(19700301);
+	dateStamp dec(19691201);
+
 
 	// Verifiy that difference is commutative
 	group.equal(29, early.differenceInYears(late));
 	group.equal(29, late.differenceInYears(early));
+	group.equal(1000, twelveHundred.differenceInYears(twentyTwoHundred));
+	group.equal(1000, twentyTwoHundred.differenceInYears(twelveHundred));
+	group.equal(1000, fiveHundredBC.differenceInYears(adFiveHundred));
+	group.equal(1000, adFiveHundred.differenceInYears(fiveHundredBC));
+	group.equal(0, dec.differenceInYears(jan));
+	group.equal(0, jan.differenceInYears(dec));
+	group.equal(0, jan.differenceInYears(mar));
+	group.equal(0, mar.differenceInYears(jan));
 
+	group.equal(2, jan.differenceInMonths(mar));
 }
 
 int main(int argc, char *argv[])
 {
 	cout << "===\tStarting Program\t===" << endl;
 
-	dateStamp date;
-
 	TestSuite dateTimeSuite("units.csv");
-	TestGroup constants("Constant Values");
-	TestGroup dayGroup("Day Operations");
-	TestGroup monthGroup("Month Operations");
+
+	TestGroup constants("Constant values");
+	TestGroup dayGroup("Day operations");
+	TestGroup monthGroup("Month operations");
 	TestGroup yearGroup("Year operations");
-	TestGroup stampIntegrity("Stamp Integrity");
-	TestGroup differences("Datestamp Differences");
+	TestGroup stampIntegrity("Stamp integrity");
+	TestGroup differences("Datestamp differences");
 
 	//	Lookup tables, constants, non-computed values, and compile time values
 	//	not including TMP values.
@@ -199,6 +213,7 @@ int main(int argc, char *argv[])
 	dateTimeSuite.addGroup(yearGroup);
 	dateTimeSuite.addGroup(stampIntegrity);
 	dateTimeSuite.addGroup(differences);
+
 	dateTimeSuite.run();
 	dateTimeSuite.write();
 

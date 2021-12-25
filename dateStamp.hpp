@@ -168,6 +168,15 @@ int dateStamp::differenceInYears(dateStamp other)
 	return abs(getYear() - other.getYear());
 }
 
+int dateStamp::differenceInMonths(dateStamp other)
+{
+	int result = 0;
+	result += abs(getMonth() - other.getMonth());
+	int yearDiff = differenceInYears(other);
+	result += yearDiff * monthsInGregorian;
+
+	return abs(result);
+}
 
 #endif	//	DATESTAMP_HPP
 
