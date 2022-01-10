@@ -1,4 +1,4 @@
-cc = clang++
+cc = g++
 inc = "../LazyTest"
 flags = -Wall -std=c++17 -I $(inc)
 

@@ -28,6 +28,7 @@ public:
 	int getMonth();
 	int getDay();
 	int getDateStamp();
+	int getOrdinalDay();
 	string getWeekday();
 
 	void setYear(int year);
@@ -46,6 +47,8 @@ public:
 
 	bool isLeap();
 	bool isLeap(int other);
+	int countLeapYears();
+	int countLeapYears(int year);
 };
 
 dateStamp::dateStamp()
@@ -79,6 +82,13 @@ int dateStamp::getDay()
 	int monthDay = stamp - (int(stamp / 10000) * 10000);
 
 	return monthDay - (int(monthDay / 100) * 100);
+}
+
+int dateStamp::getOrdinalDay()
+{
+	//int months = getMonth() - 1;
+
+	return 0;
 }
 
 int dateStamp::getDateStamp()
@@ -155,7 +165,6 @@ void dateStamp::setYear(int year)
 	}
 }
 
-
 void dateStamp::addDays(int days)
 {
 	//int year = getYear();
@@ -177,6 +186,69 @@ int dateStamp::differenceInMonths(dateStamp other)
 
 	return abs(result);
 }
+
+int dateStamp::differenceInDays(dateStamp other)
+{
+	//int daysPerYear = 365;
+	//int year = getYear() - 1;
+	//dateStamp unixEpoch(19700101);
+
+	return 0;
+}
+
+// The logic to determine if a year is a leap year or not:
+// If a year is divisible by 4, but not also divisible by 100 then it is a leap
+// If a year is divisible by 400 it is a leap year regardless of any other
+// divisor. For example, 1900 was not a leap year, while 2000 was a leap year.
+// 1896, 1904, 1996, 2004 were also leap years
+// =============================================================================
+// Before the year 8AD in the Julian calendar the following were leap years:
+// 45 BC, 42 BC, 39 BC, 36 BC, 33 BC, 30 BC, 27 BC, 24 BC, 21 BC, 18 BC, 15 BC,
+// 12 BC, 9 BC, 8 AD, 12 AD
+// https://archive.fo/iLTqO
+// It isn't clear from internet sources how the Gregorian calendar deals with
+// some of these dates. Some sources will call 4AD a leap year
+// https://archive.ph/Zow5C
+bool dateStamp::isLeap()
+{
+	int year = getYear();
+	if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+/*
+================================================================================
+Inputs: none
+Output: int count
+Detail: Returns the count of leap years from 1AD to the current year. For
+example, if the year is 2022 the function will return a single integer
+representing the number of leap years from [1, 2022]
+================================================================================
+*/
+int dateStamp::countLeapYears()
+{
+	// A) Count the number of years that are divisible by 4
+	// B) Count the number of years that are divisible by 100
+	// C) Count the number of years that are divisible by 400
+	// Subtract B from A then add C.
+	// Years that are divisible by 100 are also divisible by 4, and the same is
+	// true for years that are divisible by 400. If a year is divisible by 400
+	// it is also divisible by 100. If a year is divisible by 4 there still is
+	// the 100 divisiblity condition to check, but any year that is divisible by
+	// 400 then it is always a leap year.
+	int year = getYear();
+	return (year / 4) - (year / 100) + (year / 400);
+}
+
+int dateStamp::countLeapYears(int year)
+{
+	return (year / 4) - (year / 100) + (year / 400);
+}
+
 
 #endif	//	DATESTAMP_HPP
 
