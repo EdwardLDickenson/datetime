@@ -83,10 +83,10 @@ string saturday = "Saturday";
 
 static const string weekdaysByName[7] =
 									{
-										sunday, monday, tuesday, wednesday, thursday, friday, saturday
+										sunday, monday, tuesday,
+										wednesday, thursday, friday,
+										saturday
 									};
-
-
 
 #endif	//	DATETIMETABLES_HPP
 

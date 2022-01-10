@@ -249,7 +249,6 @@ int dateStamp::countLeapYears(int year)
 	return (year / 4) - (year / 100) + (year / 400);
 }
 
-
 #endif	//	DATESTAMP_HPP
 
 

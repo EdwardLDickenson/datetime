@@ -5,6 +5,7 @@
 // Because the datestamp class is a wrapper around a bitstamp represented as an
 // integer, the values are not zero indexed.
 
+
 #include <lazytest/lazytest.hpp>
 #include "dateStamp.hpp"
 
