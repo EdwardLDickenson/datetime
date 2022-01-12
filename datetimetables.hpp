@@ -18,15 +18,14 @@ static const int daysInOctober = 31;
 static const int daysInNovember = 30;
 static const int daysInDecember = 31;
 
-static const int numberOfDaysByMonth[12] =
-											{
-												daysInJanuary, daysInFebruary, daysInMarch,
-												daysInApril, daysInMay, daysInJune,
-												daysInJuly, daysInAugust, daysInSeptember,
-												daysInOctober, daysInNovember, daysInDecember
-											};
+static const int numberOfDaysByMonth[12] = {
+	daysInJanuary, daysInFebruary, daysInMarch,
+	daysInApril, daysInMay, daysInJune,
+	daysInJuly, daysInAugust, daysInSeptember,
+	daysInOctober, daysInNovember, daysInDecember
+};
 
-//	Acts like a look up table of the ordinal dates in the year, calculated
+// Acts like a look up table of the ordinal dates in the year, calculated
 // for each month. An ordinal date is like a running count of the number of
 // days. This count is not zero indexed. January 1st is represented as 1
 static const int ordinalJanuary = 31;
@@ -42,15 +41,15 @@ static const int ordinalOctober = 304;
 static const int ordinalNovember = 334;
 static const int ordinalDecember = 365;
 
-static const int ordinalMonths[12] =
-											{
-												ordinalJanuary, ordinalFebruary, ordinalMarch,
-												ordinalApril, ordinalMay, ordinalJune,
-												ordinalJuly, ordinalAugust, ordinalSeptember,
-												ordinalOctober, ordinalNovember, ordinalDecember
-											};
+static const int ordinalMonths[12] = {
+	ordinalJanuary, ordinalFebruary, ordinalMarch,
+	ordinalApril, ordinalMay, ordinalJune,
+	ordinalJuly, ordinalAugust, ordinalSeptember,
+	ordinalOctober, ordinalNovember, ordinalDecember
+};
 
-//	This might need adjustment when dealing with translations or abbreviated formats
+// This might need adjustment when dealing with translations or abbreviated
+// formats
 static const string january = "January";
 static const string february = "February";
 static const string march = "March";
@@ -64,15 +63,14 @@ static const string october = "October";
 static const string november = "November";
 static const string december = "December";
 
-static const string monthsByName[12] =
-									{
-										january, february, march,
-										april, may, june,
-										july, august, september,
-										october, november, december
-									};
+static const string monthsByName[12] = {
+	january, february, march,
+	april, may, june,
+	july, august, september,
+	october, november, december
+};
 
-//	Also might need to be adjusted for abbrevations and translations
+// Also might need to be adjusted for abbrevations and translations
 string sunday = "Sunday";
 string monday = "Monday";
 string tuesday = "Tuesday";
@@ -81,12 +79,11 @@ string thursday = "Thursday";
 string friday = "Friday";
 string saturday = "Saturday";
 
-static const string weekdaysByName[7] =
-									{
-										sunday, monday, tuesday,
-										wednesday, thursday, friday,
-										saturday
-									};
+static const string weekdaysByName[7] = {
+	sunday, monday, tuesday,
+	wednesday, thursday, friday,
+	saturday
+};
 
 #endif	//	DATETIMETABLES_HPP
 
