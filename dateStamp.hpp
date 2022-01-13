@@ -84,13 +84,6 @@ int dateStamp::getDay()
 	return monthDay - (int(monthDay / 100) * 100);
 }
 
-int dateStamp::getOrdinalDay()
-{
-	//int months = getMonth() - 1;
-
-	return 0;
-}
-
 int dateStamp::getDateStamp()
 {
 	return stamp;
@@ -247,6 +240,19 @@ int dateStamp::countLeapYears()
 int dateStamp::countLeapYears(int year)
 {
 	return (year / 4) - (year / 100) + (year / 400);
+}
+
+/*
+Inputs: none
+Output: int days
+Detail: Returns the number of days since January 1st 1AD. The running count of
+days referred to as the ordinal day. This is not the same as the ordinal day of
+the year. The ordinal day of the year can be computed by subtracting the
+difference in days from the ordinal day to the start of the to be compared.
+*/
+int dateStamp::getOrdinalDay()
+{
+	return (getYear() - 1) * 365 + countLeapYears() + ordinalMonths[getMonth() - 1] + getDay() - 1;
 }
 
 #endif	//	DATESTAMP_HPP

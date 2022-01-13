@@ -262,6 +262,43 @@ void testLeap(TestGroup &group)
 	group.equal(490, date.countLeapYears());
 }
 
+void testOrdinalDays(TestGroup &group)
+{
+	dateStamp date;
+
+	// Count the number of days between January 1st 1AD and:
+	// January 1st, 1970
+	group.equal(719162, date.getOrdinalDay());
+	// January 2nd, 1970
+	date.setDay(2);
+	group.equal(719163, date.getOrdinalDay());
+	// February 2nd, 1970
+	date.setMonth(2);
+	group.equal(719194, date.getOrdinalDay());
+	// December 2nd, 1970
+	date.setMonth(12);
+	group.equal(719497, date.getOrdinalDay());
+	// December 31, 1970
+	date.setDay(31);
+	group.equal(719526, date.getOrdinalDay());;
+	// December 31, 1972
+	date.setYear(1972);
+	group.equal(720257, date.getOrdinalDay());
+	// December 31, 1980
+	date.setYear(1980);
+	group.equal(723179, date.getOrdinalDay());
+	// January 1st, 2000
+	date.setYear(2000);
+	date.setMonth(1);
+	date.setDay(1);
+	group.equal(730119, date.getOrdinalDay());
+	cout << date.getDateStamp() << endl;
+	// January 1st, 2020
+	date.setYear(2020);
+	group.equal(737424, date.getOrdinalDay());
+	cout << date.getDateStamp() << endl;
+}
+
 int main(int argc, char *argv[])
 {
 	cout << "===\tStarting Program\t===" << endl;
@@ -275,6 +312,7 @@ int main(int argc, char *argv[])
 	TestGroup stampIntegrity("Stamp integrity");
 	TestGroup differences("Datestamp differences");
 	TestGroup leaps("Leap Year Formula");
+	TestGroup ordinals("Ordinal Days");
 
 	//	Lookup tables, constants, non-computed values, and compile time values
 	//	not including TMP values.
@@ -285,6 +323,7 @@ int main(int argc, char *argv[])
 	testStampIntegrity(stampIntegrity);
 	testDifferences(differences);
 	testLeap(leaps);
+	testOrdinalDays(ordinals);
 
 	dateTimeSuite.addGroup(constants);
 	dateTimeSuite.addGroup(dayGroup);
@@ -293,6 +332,7 @@ int main(int argc, char *argv[])
 	dateTimeSuite.addGroup(stampIntegrity);
 	dateTimeSuite.addGroup(differences);
 	dateTimeSuite.addGroup(leaps);
+	dateTimeSuite.addGroup(ordinals);
 
 	dateTimeSuite.run();
 	dateTimeSuite.write();

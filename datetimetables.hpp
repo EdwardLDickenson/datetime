@@ -28,18 +28,18 @@ static const int numberOfDaysByMonth[12] = {
 // Acts like a look up table of the ordinal dates in the year, calculated
 // for each month. An ordinal date is like a running count of the number of
 // days. This count is not zero indexed. January 1st is represented as 1
-static const int ordinalJanuary = 31;
-static const int ordinalFebruary = 59;
-static const int ordinalMarch = 90;
-static const int ordinalApril = 120;
-static const int ordinalMay = 151;
-static const int ordinalJune = 181;
-static const int ordinalJuly = 212;
-static const int ordinalAugust = 243;
-static const int ordinalSeptember = 273;
-static const int ordinalOctober = 304;
-static const int ordinalNovember = 334;
-static const int ordinalDecember = 365;
+static const int ordinalJanuary = 0;
+static const int ordinalFebruary = 31;
+static const int ordinalMarch = 59;
+static const int ordinalApril = 90;
+static const int ordinalMay = 120;
+static const int ordinalJune = 151;
+static const int ordinalJuly = 181;
+static const int ordinalAugust = 212;
+static const int ordinalSeptember = 243;
+static const int ordinalOctober = 273;
+static const int ordinalNovember = 304;
+static const int ordinalDecember = 334;
 
 static const int ordinalMonths[12] = {
 	ordinalJanuary, ordinalFebruary, ordinalMarch,
