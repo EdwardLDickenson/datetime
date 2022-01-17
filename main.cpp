@@ -287,16 +287,30 @@ void testOrdinalDays(TestGroup &group)
 	// December 31, 1980
 	date.setYear(1980);
 	group.equal(723179, date.getOrdinalDay());
+	// December 31, 1999
+	date.setYear(1999);
+	group.equal(730118, date.getOrdinalDay());
+
+	// The bug seems to be caused by the way that leap days are applied to leap
+	// years. The leap day is currently applied to the start of the year, making
+	// January 1st appear as January 2nd
+
+	// December 31, 2000
+	date.setYear(2000);
+	group.equal(730484, date.getOrdinalDay());
 	// January 1st, 2000
 	date.setYear(2000);
 	date.setMonth(1);
 	date.setDay(1);
 	group.equal(730119, date.getOrdinalDay());
-	cout << date.getDateStamp() << endl;
+	// March 1st, 2000
+	date.setMonth(3);
+	group.equal(730179, date.getOrdinalDay());
+
 	// January 1st, 2020
 	date.setYear(2020);
+	date.setMonth(1);
 	group.equal(737424, date.getOrdinalDay());
-	cout << date.getDateStamp() << endl;
 }
 
 int main(int argc, char *argv[])

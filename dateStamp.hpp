@@ -252,7 +252,19 @@ difference in days from the ordinal day to the start of the to be compared.
 */
 int dateStamp::getOrdinalDay()
 {
-	return (getYear() - 1) * 365 + countLeapYears() + ordinalMonths[getMonth() - 1] + getDay() - 1;
+	int leapDay = 0;
+	if(isLeap())
+	{
+		// XXXX0228 = 228
+		if((getMonth() * 100 + getDay()) > 228)
+		{
+			cout << "Condition met: " << stamp << endl;
+			leapDay = 1;
+		}
+	}
+
+
+	return (getYear() - 1) * 365 + (countLeapYears(getYear() - 1) - 0) + ordinalMonths[getMonth() - 1] + (getDay() - 1) + leapDay;
 }
 
 #endif	//	DATESTAMP_HPP
