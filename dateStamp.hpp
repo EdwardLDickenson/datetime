@@ -29,6 +29,8 @@ public:
 	int getDay();
 	int getDateStamp();
 	int getOrdinalDay();
+	int getOrdinalDayInYear();
+	int convertOrdinalDay(int days);
 	string getWeekday();
 
 	void setYear(int year);
@@ -46,7 +48,7 @@ public:
 	void addYears(int years);
 
 	bool isLeap();
-	bool isLeap(int other);
+	bool isLeap(int year);
 	int countLeapYears();
 	int countLeapYears(int year);
 };
@@ -215,6 +217,24 @@ bool dateStamp::isLeap()
 
 /*
 ================================================================================
+Inputs: int year, the year to be checked
+Output: bool, is a leap or not
+Detail: Returns true if year is a leap year. Returns false if year is a common
+year (non-leap). Functions the same as isLeap() but with external variables
+================================================================================
+*/
+bool dateStamp::isLeap(int year)
+{
+	if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+/*
+================================================================================
 Inputs: none
 Output: int count
 Detail: Returns the count of leap years from 1AD to the current year. For
@@ -243,28 +263,37 @@ int dateStamp::countLeapYears(int year)
 }
 
 /*
+================================================================================
 Inputs: none
 Output: int days
 Detail: Returns the number of days since January 1st 1AD. The running count of
 days referred to as the ordinal day. This is not the same as the ordinal day of
 the year. The ordinal day of the year can be computed by subtracting the
 difference in days from the ordinal day to the start of the to be compared.
+================================================================================
 */
 int dateStamp::getOrdinalDay()
 {
+	// This can likely be collapsed into a bitmask to avoid a condition
 	int leapDay = 0;
 	if(isLeap())
 	{
+		// YYYYMMDD
 		// XXXX0228 = 228
 		if((getMonth() * 100 + getDay()) > 228)
 		{
-			cout << "Condition met: " << stamp << endl;
 			leapDay = 1;
 		}
 	}
 
+	return (getYear() - 1) * 365 + countLeapYears(getYear() - 1) + ordinalMonths[getMonth() - 1] + (getDay() - 1) + leapDay;
+}
 
-	return (getYear() - 1) * 365 + (countLeapYears(getYear() - 1) - 0) + ordinalMonths[getMonth() - 1] + (getDay() - 1) + leapDay;
+/*
+*/
+int dateStamp::convertOrdinalDay(int day)
+{
+	return 0;
 }
 
 #endif	//	DATESTAMP_HPP

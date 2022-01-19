@@ -86,7 +86,13 @@ void testDay(TestGroup &group)
 
 	group.equal(1, stamp.getDay());
 	group.equal(19700101, stamp.getDateStamp());
-	group.equal(1, stamp.getOrdinalDay());
+
+	stamp.setDay(1);
+	group.equal(19700101, stamp.getDateStamp());
+	//cout << stamp.getDateStamp() << endl;
+	stamp.setDay(2);
+	group.equal(19700102, stamp.getDateStamp());
+	//cout << stamp.getDateStamp() << endl;
 
 	stamp.setDay(10);
 	group.equal(19700110, stamp.getDateStamp());
@@ -98,6 +104,7 @@ void testDay(TestGroup &group)
 	group.equal(19700199, stamp.getDateStamp());
 	stamp.setDay(100);
 	group.equal(19700200, stamp.getDateStamp());
+
 }
 
 void testMonth(TestGroup &group)
@@ -268,7 +275,7 @@ void testOrdinalDays(TestGroup &group)
 
 	// Count the number of days between January 1st 1AD and:
 	// January 1st, 1970
-	group.equal(719162, date.getOrdinalDay());
+	group.equal(719162, date.getOrdinalDay(), "???");
 	// January 2nd, 1970
 	date.setDay(2);
 	group.equal(719163, date.getOrdinalDay());
@@ -291,10 +298,6 @@ void testOrdinalDays(TestGroup &group)
 	date.setYear(1999);
 	group.equal(730118, date.getOrdinalDay());
 
-	// The bug seems to be caused by the way that leap days are applied to leap
-	// years. The leap day is currently applied to the start of the year, making
-	// January 1st appear as January 2nd
-
 	// December 31, 2000
 	date.setYear(2000);
 	group.equal(730484, date.getOrdinalDay());
@@ -311,6 +314,26 @@ void testOrdinalDays(TestGroup &group)
 	date.setYear(2020);
 	date.setMonth(1);
 	group.equal(737424, date.getOrdinalDay());
+
+	// Create every datestamp from January 1st 1AD to December 31st 399AD
+	int year = 400;
+	int dayCount = 0;
+	for(int i = 1; i < year; ++i)
+	{
+		for(int j = 1; j <= monthsInGregorian; ++j)
+		{
+			int daysOfMonth = numberOfDaysByMonth[j - 1];
+			if(date.isLeap(i) && j == 2)
+			{
+				++daysOfMonth;
+			}
+			for(int k = 1; k <= daysOfMonth; ++k)
+			{
+				//cout << ((i * 10000) + (j * 100) + k) << endl;
+				++dayCount;
+			}
+		}
+	}
 }
 
 int main(int argc, char *argv[])
