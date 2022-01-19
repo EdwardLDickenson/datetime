@@ -29,7 +29,7 @@ public:
 	int getDay();
 	int getDateStamp();
 	int getOrdinalDay();
-	int getOrdinalDayInYear();
+	int getOrdinalDayOfYear();
 	int convertOrdinalDay(int days);
 	string getWeekday();
 
@@ -286,10 +286,19 @@ int dateStamp::getOrdinalDay()
 		}
 	}
 
-	return (getYear() - 1) * 365 + countLeapYears(getYear() - 1) + ordinalMonths[getMonth() - 1] + (getDay() - 1) + leapDay;
+	int yearOffset = getYear() - 1;
+
+	return yearOffset * 365 + countLeapYears(yearOffset) + ordinalMonths[getMonth() - 1] + (getDay() - 1) + leapDay;
 }
 
 /*
+================================================================================
+Inputs: int days, the number of days since January 1st, 1AD
+Output: int convertedDatestamp,the value of days converted into a datestamp
+Detail: Accepts an integer, days, representing the count of all days, including
+leap days, starting from January 1st 1AD and returns another integer,
+convertedDatestamp, which matches the format of the datestmap class.
+================================================================================
 */
 int dateStamp::convertOrdinalDay(int day)
 {
