@@ -315,7 +315,7 @@ void testOrdinalDays(TestGroup &group)
 	date.setMonth(1);
 	group.equal(737424, date.getOrdinalDay());
 
-	// Create every datestamp from January 1st 1AD to December 31st 399AD
+	// Create every datestamp from January 1st 1AD to January 1st 400AD
 	int year = 400;
 	int dayCount = 0;
 	for(int i = 1; i < year; ++i)
@@ -329,7 +329,11 @@ void testOrdinalDays(TestGroup &group)
 			}
 			for(int k = 1; k <= daysOfMonth; ++k)
 			{
-				//cout << ((i * 10000) + (j * 100) + k) << endl;
+				int stamp = ((i * 10000) + (j * 100) + k);
+				date.setDateStamp(stamp);
+				stringstream stream;
+				stream << "Bad ordinal day. Year Iterated: " << to_string(stamp) << ", Computed: " << to_string(date.getDateStamp());
+				group.equal(dayCount, date.getOrdinalDay(), stream.str());
 				++dayCount;
 			}
 		}

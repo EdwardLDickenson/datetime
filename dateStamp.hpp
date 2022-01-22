@@ -160,6 +160,19 @@ void dateStamp::setYear(int year)
 	}
 }
 
+/*
+================================================================================
+Inputs: int stmp, the new datestamp
+Output: none
+Detail: Sets the current datestamp of this instance equal to the value of the
+int stmp.
+================================================================================
+*/
+void dateStamp::setDateStamp(int stmp)
+{
+	stamp = stmp;
+}
+
 void dateStamp::addDays(int days)
 {
 	//int year = getYear();
