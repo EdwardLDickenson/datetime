@@ -291,9 +291,11 @@ int dateStamp::getOrdinalDay()
 	int leapDay = 0;
 	if(isLeap())
 	{
+		// For an arbitrary leap year, we need to apply a leap day for February
+		// 29th and every day after for that year.
 		// YYYYMMDD
-		// XXXX0228 = 228
-		if((getMonth() * 100 + getDay()) > 228)
+		// XXXX0228 = 229
+		if((getMonth() * 100 + getDay()) > 229)
 		{
 			leapDay = 1;
 		}

@@ -315,7 +315,7 @@ void testOrdinalDays(TestGroup &group)
 	date.setMonth(1);
 	group.equal(737424, date.getOrdinalDay());
 
-	// Create every datestamp from January 1st 1AD to January 1st 400AD
+	// Create every datestamp from January 1st 1AD to December 31st 399
 	int year = 400;
 	int dayCount = 0;
 	for(int i = 1; i < year; ++i)
