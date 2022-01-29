@@ -31,6 +31,7 @@ public:
 	int getOrdinalDay();
 	int getOrdinalDayOfYear();
 	int convertOrdinalDay(int days);
+	int convertOrdinalDayOfYear(int days);
 	string getWeekday();
 
 	void setYear(int year);
@@ -315,17 +316,128 @@ leap days, starting from January 1st 1AD and returns another integer,
 convertedDatestamp, which matches the format of the datestmap class.
 ================================================================================
 */
-int dateStamp::convertOrdinalDay(int day)
+int dateStamp::convertOrdinalDay(int days)
 {
-	return 0;
+	// This number is inclusive of leap years and common years including the
+	// 4, 100, and 400 factors to determine if a year is a common or a leap year
+	int daysInFourCent = 146097;
+
+	int fourCentMultiple = days / daysInFourCent;
+	int daysMinusFourMultiple = days - (fourCentMultiple * daysInFourCent);
+	int leapsInOneCent = 24;
+	int daysInOneCent = 365 * 100 + leapsInOneCent;
+	int centMultiple = days / daysInOneCent;
+	int daysMinusOneCentMultiple = daysMinusFourMultiple - (centMultiple * daysInOneCent);
+	int daysInFourYears = 365 * 4 + 1;
+	int fourYearsMultiple = daysMinusOneCentMultiple / daysInFourYears;
+	int daysMinusFourYears = daysMinusOneCentMultiple - (fourYearsMultiple * daysInFourYears);
+	int yearsMultiple = daysMinusFourYears / 365;
+	int daysRemaining = (daysMinusFourYears - (yearsMultiple * 365)) + 1;
+	// Reconstruct the date
+	int year = (fourCentMultiple * 400) + (centMultiple * 100) + (fourYearsMultiple * 4) + yearsMultiple;
+	++year;
+
+	// The logic for this chunk of code can probably be consolidated into
+	// convertOrdinalDayOfYear
+
+	int month = 0;
+	//while(daysRemaining > 31)
+	/*
+	while(daysRemaining > numberOfDaysByMonth[month])
+	{
+		int daysForThisMonth = numberOfDaysByMonth[month];
+		if(isLeap(year) && ((month + 1) * 100) + daysRemaining == 229)
+		{
+			daysForThisMonth = 29;
+		}
+		daysRemaining -= daysForThisMonth;
+		++month;
+	}
+	++month;
+	*/
+
+	//cout << daysRemaining << endl;
+	int ordinalDays = 0;
+	cout << "daysRemaining: " << daysRemaining;// << ", ordinalDays: " << ordinalDays << endl;
+	for(int i = 0; i <= monthsInGregorian; ++i)
+	{
+		/*int daysInThisMonth = ordinalMonths[i];
+		if(isLeap(year) && ((month + 1) * 100) + daysRemaining == 229)
+		{
+			daysInThisMonth = 29;
+		}
+
+		if(daysRemaining - daysInThisMonth < 0)
+		{
+			month = i;
+			break;
+		}
+		daysRemaining -= daysInThisMonth;
+		month = i;*/
+		//int daysForThisMonth = ordinalMonths[i];
+		ordinalDays = ordinalMonths[i + 1];
+		bool leap = isLeap(year);
+
+		if(leap)
+		{
+			ordinalDays = ordinalLeapMonths[i + 1];
+			//daysForThisMonth = ordinalLeapMonths[i];
+			//daysRemaining += 1;
+		}
+
+		if(daysRemaining - ordinalDays <= 0)
+		{
+			ordinalDays = ordinalMonths[i];
+			if(leap)
+			{
+				ordinalDays = ordinalLeapMonths[i];
+			}
+			//daysRemaining -= ordinalDays;
+			month = i + 1;
+			//cout << "\t daysForThisMonth: " << daysForThisMonth << endl;
+			//daysRemaining -= daysForThisMonth;
+			break;
+		}
+	}
+	//cout <<  ", ordinalDays: " << ordinalDays << endl;
+	daysRemaining -= ordinalDays;
+	cout <<  ", ordinalDays: " << ordinalDays << " " << daysRemaining << endl;
+
+	//cout << daysRemaining << endl;
+
+	/*
+	int multipleOf400 = days / daysIn400Years;
+	int daysMinus400Multiple = daysIn400Years * multipleOf400;
+	int leapYearsIn100CommonYears = 24;
+	int daysIn100CommonYears = 365 * 100 + leapYearsIn100CommonYears;
+	int daysMinus100Multiple = daysMinus400Multiple / daysIn100CommonYears;
+	int daysIn4Years = 365 * 4 + 1;
+	int daysMinus4Multiple = daysIn100CommonYears
+	*/
+
+	//int leapYearsIn400CommonYears = leapYearsIn100CommonYears * 3 + 1;
+	//return year;
+/*
+	cout << "YYYY" << year;
+	year *= 10000;
+	cout << "MM" << month;
+	month *= 100;
+	cout << "DD" << daysRemaining << endl;
+*/
+	//             yyyymmdd
+	return (year * 10000) + (month * 100) + (daysRemaining);
+	//return year + month + daysRemaining;
 }
 
 #endif	//	DATESTAMP_HPP
 
 
 
-//	TODO:
-//	setDay should throw a warning, but not an error, when the value exceeds the
-//	number of days in the month.
+// TODO:
+// setDay should throw a warning, but not an error, when the value exceeds the
+// number of days in the month.
+//
+//
+// Replace the magic numbers with readable constants in datetimetables.hpp
 //
 //

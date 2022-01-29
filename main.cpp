@@ -275,7 +275,7 @@ void testOrdinalDays(TestGroup &group)
 
 	// Count the number of days between January 1st 1AD and:
 	// January 1st, 1970
-	group.equal(719162, date.getOrdinalDay(), "???");
+	group.equal(719162, date.getOrdinalDay());
 	// January 2nd, 1970
 	date.setDay(2);
 	group.equal(719163, date.getOrdinalDay());
@@ -310,34 +310,57 @@ void testOrdinalDays(TestGroup &group)
 	date.setMonth(3);
 	group.equal(730179, date.getOrdinalDay());
 
+	// January 1st 2001
+	date.setYear(2001);
+	date.setMonth(1);
+	date.setDay(1);
+	group.equal(730485, date.getOrdinalDay());
+
 	// January 1st, 2020
 	date.setYear(2020);
 	date.setMonth(1);
 	group.equal(737424, date.getOrdinalDay());
 
-	// Create every datestamp from January 1st 1AD to December 31st 399
-	int year = 400;
+	// Create every datestamp from January 1st 1AD to December 31st 400
+	// The Gregorian calendar repeats itself once every 400 years.
+	int year = 401;
 	int dayCount = 0;
 	for(int i = 1; i < year; ++i)
 	{
 		for(int j = 1; j <= monthsInGregorian; ++j)
 		{
 			int daysOfMonth = numberOfDaysByMonth[j - 1];
+
 			if(date.isLeap(i) && j == 2)
 			{
 				++daysOfMonth;
 			}
+
 			for(int k = 1; k <= daysOfMonth; ++k)
 			{
 				int stamp = ((i * 10000) + (j * 100) + k);
 				date.setDateStamp(stamp);
 				stringstream stream;
-				stream << "Bad ordinal day. Year Iterated: " << to_string(stamp) << ", Computed: " << to_string(date.getDateStamp());
+				//cout << stamp << endl;
+
+				//
+				stream << "Bad ordinal day. Date Iterated: " << to_string(stamp) << ", Computed: " << to_string(date.getDateStamp());
 				group.equal(dayCount, date.getOrdinalDay(), stream.str());
+
+				//
+				stream.str("");
+
+				//
+				stream << "Bad conversion from ordinal day. Day Iterated: " << dayCount << ", Computed: " << date.getOrdinalDay() << ", Date: "<< stamp;
+				group.equal(date.getDateStamp(), date.convertOrdinalDay(date.getOrdinalDay()), stream.str());
+				//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+				//date.convertOrdinalDay(date.getOrdinalDay());
 				++dayCount;
 			}
 		}
 	}
+
+
 }
 
 int main(int argc, char *argv[])

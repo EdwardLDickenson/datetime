@@ -41,11 +41,20 @@ static const int ordinalOctober = 273;
 static const int ordinalNovember = 304;
 static const int ordinalDecember = 334;
 
-static const int ordinalMonths[12] = {
+static const int ordinalMonths[13] = {
 	ordinalJanuary, ordinalFebruary, ordinalMarch,
 	ordinalApril, ordinalMay, ordinalJune,
 	ordinalJuly, ordinalAugust, ordinalSeptember,
-	ordinalOctober, ordinalNovember, ordinalDecember
+	ordinalOctober, ordinalNovember, ordinalDecember,
+	365
+};
+
+static const int ordinalLeapMonths[13] = {
+	ordinalJanuary, ordinalFebruary, ordinalMarch + 1,
+	ordinalApril + 1, ordinalMay + 1, ordinalJune + 1,
+	ordinalJuly + 1, ordinalAugust + 1, ordinalSeptember + 1,
+	ordinalOctober + 1, ordinalNovember + 1, ordinalDecember + 1,
+	366
 };
 
 // This might need adjustment when dealing with translations or abbreviated
