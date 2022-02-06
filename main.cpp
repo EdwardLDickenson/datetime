@@ -360,7 +360,27 @@ void testOrdinalDays(TestGroup &group)
 		}
 	}
 
+	date.setDateStamp(40101);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(40228);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(40229);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(40301);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(41230);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(41231);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(50101);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
 
+	date.setDateStamp(4001230);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(4001231);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	date.setDateStamp(4010101);
+	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
 }
 
 int main(int argc, char *argv[])

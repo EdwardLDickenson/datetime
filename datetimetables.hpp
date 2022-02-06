@@ -94,6 +94,7 @@ static const string weekdaysByName[7] = {
 	saturday
 };
 
+
 #endif	//	DATETIMETABLES_HPP
 
 
