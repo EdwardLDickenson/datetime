@@ -466,6 +466,22 @@ int dateStamp::convertOrdinalDay(int days)
 	//return year + month + daysRemaining;
 }
 
+/*
+================================================================================
+Inputs: none
+Output: int ordinalDay, with a value between [1,366]
+Detail: Given any datestamp, this function will return the ordinal date of the
+year. This number represents the count of days from January 1st of any arbitrary
+year. The function is expected to return an integer between 1 and 366
+inclusively. The function is also expected to operate on a valid datestamp
+================================================================================
+*/
+int dateStamp::getOrdinalDayOfYear()
+{
+	return 0;
+}
+
+
 #endif	//	DATESTAMP_HPP
 
 
