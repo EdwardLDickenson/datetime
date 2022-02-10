@@ -334,7 +334,7 @@ int dateStamp::convertOrdinalDay(int days)
 	int yearMultiple = days / (365 + 0);
 	days -= yearMultiple * 365;
 	int daysRemaining = days + 1;
-	cout << "Leap Multiple: " << leapMultiple << " Year Multiple: " << yearMultiple << " cycleMultiple: " << cycleMultiple << " quarterCycleMultiple: " << quarterCycleMultiple << endl;
+	//cout << "Leap Multiple: " << leapMultiple << " Year Multiple: " << yearMultiple << " cycleMultiple: " << cycleMultiple << " quarterCycleMultiple: " << quarterCycleMultiple << endl;
 	int year = (cycleMultiple * 400) + (quarterCycleMultiple * 100) + (leapMultiple * 4) + yearMultiple + 1;
 
 /*
@@ -450,7 +450,6 @@ int dateStamp::convertOrdinalDay(int days)
 	if(quarterCycleMultiple == 4)
 	//if(cycleMultiple == 1)
 	{
-		cout << "Executes\t\t\t?" << year << endl;
 		//return (year * 10000) + (month * 100) + (daysRemaining);
 	}
 
@@ -470,14 +469,16 @@ int dateStamp::convertOrdinalDay(int days)
 ================================================================================
 Inputs: none
 Output: int ordinalDay, with a value between [1,366]
-Detail: Given any datestamp, this function will return the ordinal date of the
-year. This number represents the count of days from January 1st of any arbitrary
-year. The function is expected to return an integer between 1 and 366
+Detail: Given the current datestamp, this function will return the ordinal date
+of the year. This number represents the count of days from January 1st of any
+arbitrary year. The function is expected to return an integer between 1 and 366
 inclusively. The function is also expected to operate on a valid datestamp
 ================================================================================
 */
 int dateStamp::getOrdinalDayOfYear()
 {
+
+
 	return 0;
 }
 

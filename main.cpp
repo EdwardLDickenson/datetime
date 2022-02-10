@@ -361,26 +361,78 @@ void testOrdinalDays(TestGroup &group)
 	}
 
 	date.setDateStamp(40101);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 40101);
+
 	date.setDateStamp(40228);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 40228);
+
 	date.setDateStamp(40229);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 40229);
+
 	date.setDateStamp(40301);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 40301);
+
 	date.setDateStamp(41230);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 41230);
+
 	date.setDateStamp(41231);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 41231);
+
 	date.setDateStamp(50101);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 50101);
 
 	date.setDateStamp(4001230);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 4001230);
+
 	date.setDateStamp(4001231);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 4001231);
+
 	date.setDateStamp(4010101);
-	cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
+	group.equal(date.getDateStamp(), 4010101);
+}
+
+void testYearOrdinals(TestGroup &group)
+{
+	dateStamp date;
+	//group.equal(date.getOrdinalDayOfYear(), 1);
+
+	int ordinal = 1;
+
+	// January 1st is already tested above
+	for(int i = 1; i <= 12; ++i)
+	{
+		for(int j = 1; j <= numberOfDaysByMonth[i - 1]; ++j)
+		{
+			date.setMonth(i);
+			date.setDay(j);
+			group.equal(date.getOrdinalDayOfYear(), ordinal);
+			++ordinal;
+		}
+	}
+/*
+	date.setYear(1980);
+	for(int i = 1; i <= 12; ++i)
+	{
+		for(int j = 1; j <= numberOfDaysByMonth[i - 1]; ++j)
+		{
+			date.setMonth(i);
+			date.setDay(j);
+			cout << date.getDateStamp() << " is ordinal: " << ordinal << endl;
+			group.equal(date.getOrdinalDayOfYear(), ordinal);
+			++ordinal;
+		}
+	}
+	*/
 }
 
 int main(int argc, char *argv[])
@@ -396,7 +448,8 @@ int main(int argc, char *argv[])
 	//TestGroup stampIntegrity("Stamp integrity");
 	TestGroup differences("Datestamp differences");
 	TestGroup leaps("Leap Year Formula");
-	TestGroup ordinals("Ordinal Days");
+	TestGroup ordinals("Ordinal Dates");
+	TestGroup yearOrdinals("Ordinal Day Of The Year");
 
 	//	Lookup tables, constants, non-computed values, and compile time values
 	//	not including TMP values.
@@ -408,6 +461,7 @@ int main(int argc, char *argv[])
 	testDifferences(differences);
 	testLeap(leaps);
 	testOrdinalDays(ordinals);
+	testYearOrdinals(yearOrdinals);
 
 	dateTimeSuite.addGroup(constants);
 	dateTimeSuite.addGroup(dayGroup);
@@ -417,6 +471,7 @@ int main(int argc, char *argv[])
 	dateTimeSuite.addGroup(differences);
 	dateTimeSuite.addGroup(leaps);
 	dateTimeSuite.addGroup(ordinals);
+	dateTimeSuite.addGroup(yearOrdinals);
 
 	dateTimeSuite.run();
 	dateTimeSuite.write();
