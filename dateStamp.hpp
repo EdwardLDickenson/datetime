@@ -477,9 +477,11 @@ inclusively. The function is also expected to operate on a valid datestamp
 */
 int dateStamp::getOrdinalDayOfYear()
 {
+	int month = getMonth();
+	int days = getDay();
 
 
-	return 0;
+	return ordinalMonths[month - 1] + days;
 }
 
 
