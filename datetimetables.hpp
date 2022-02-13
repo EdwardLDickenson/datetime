@@ -25,6 +25,7 @@ static const int numberOfDaysByMonth[12] = {
 	daysInOctober, daysInNovember, daysInDecember
 };
 
+//	Added for to make computation easier. Can be computed
 static const int numberOfDaysByLeapMonth[12] = {
 	daysInJanuary, daysInFebruary + 1, daysInMarch,
 	daysInApril, daysInMay, daysInJune,

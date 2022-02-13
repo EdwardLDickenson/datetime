@@ -480,8 +480,13 @@ int dateStamp::getOrdinalDayOfYear()
 	int month = getMonth();
 	int days = getDay();
 
+	int leapDay = 0;
+	if((getMonth() * 100 + getDay()) > 229 && isLeap())
+	{
+		leapDay = 1;
+	}
 
-	return ordinalMonths[month - 1] + days;
+	return ordinalMonths[month - 1] + days + leapDay;
 }
 
 
