@@ -25,6 +25,13 @@ static const int numberOfDaysByMonth[12] = {
 	daysInOctober, daysInNovember, daysInDecember
 };
 
+static const int numberOfDaysByLeapMonth[12] = {
+	daysInJanuary, daysInFebruary + 1, daysInMarch,
+	daysInApril, daysInMay, daysInJune,
+	daysInJuly, daysInAugust, daysInSeptember,
+	daysInOctober, daysInNovember, daysInDecember
+};
+
 // Acts like a look up table of the ordinal dates in the year, calculated
 // for each month. An ordinal date is like a running count of the number of
 // days. This count is not zero indexed. January 1st is represented as 1

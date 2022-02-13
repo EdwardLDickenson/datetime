@@ -419,20 +419,19 @@ void testYearOrdinals(TestGroup &group)
 			++ordinal;
 		}
 	}
-/*
+
+	ordinal = 1;
 	date.setYear(1980);
 	for(int i = 1; i <= 12; ++i)
 	{
-		for(int j = 1; j <= numberOfDaysByMonth[i - 1]; ++j)
+		for(int j = 1; j <= numberOfDaysByLeapMonth[i - 1]; ++j)
 		{
 			date.setMonth(i);
 			date.setDay(j);
-			cout << date.getDateStamp() << " is ordinal: " << ordinal << endl;
 			group.equal(date.getOrdinalDayOfYear(), ordinal);
 			++ordinal;
 		}
 	}
-	*/
 }
 
 int main(int argc, char *argv[])
