@@ -30,6 +30,7 @@ public:
 	int getDateStamp();
 	int getOrdinalDay();
 	int getOrdinalDayOfYear();
+	int getOrdinalDayOfYear(int date);
 	int convertOrdinalDay(int days);
 	int convertOrdinalDayOfYear(int days);
 	string getWeekday();
@@ -489,6 +490,21 @@ int dateStamp::getOrdinalDayOfYear()
 	return ordinalMonths[month - 1] + days + leapDay;
 }
 
+
+/*
+================================================================================
+Inputs: int date, an integer datestamp matching the format of this library
+Output: int ordinalDay, with a value between [1,366]
+Detail: Given an integer, date, calculate the ordinal day from January 1st of
+the year in date. Functions the same as funciton without a parameter, but
+accepts external variables. Datestamp integrity is not checked.
+================================================================================
+*/
+
+int dateStamp::getOrdinalDayOfYear(int date)
+{
+	return 0;
+}
 
 #endif	//	DATESTAMP_HPP
 
