@@ -496,7 +496,7 @@ int dateStamp::getOrdinalDayOfYear()
 Inputs: int date, an integer datestamp matching the format of this library
 Output: int ordinalDay, with a value between [1,366]
 Detail: Given an integer, date, calculate the ordinal day from January 1st of
-the year in date. Functions the same as funciton without a parameter, but
+the year in date. Works in the same way as funciton without a parameter, but
 accepts external variables. Datestamp integrity is not checked.
 ================================================================================
 */

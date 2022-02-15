@@ -416,6 +416,7 @@ void testYearOrdinals(TestGroup &group)
 			date.setMonth(i);
 			date.setDay(j);
 			group.equal(date.getOrdinalDayOfYear(), ordinal);
+			group.equal(date.getOrdinalDayOfYear(date.getDateStamp()), ordinal);
 			++ordinal;
 		}
 	}
@@ -429,6 +430,7 @@ void testYearOrdinals(TestGroup &group)
 			date.setMonth(i);
 			date.setDay(j);
 			group.equal(date.getOrdinalDayOfYear(), ordinal);
+			group.equal(date.getOrdinalDayOfYear(date.getDateStamp()), ordinal);
 			++ordinal;
 		}
 	}
