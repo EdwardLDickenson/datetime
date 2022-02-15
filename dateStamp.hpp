@@ -503,7 +503,17 @@ accepts external variables. Datestamp integrity is not checked.
 
 int dateStamp::getOrdinalDayOfYear(int date)
 {
-	return 0;
+	int month = (date - (int(stamp / 10000) * 10000)) / 100;
+	int monthDay = stamp - (int(stamp / 10000) * 10000);
+	int days = monthDay - (int(monthDay / 100) * 100);
+
+	int leapDay = 0;
+	if((getMonth() * 100 + getDay()) > 229 && isLeap())
+	{
+		leapDay = 1;
+	}
+
+	return ordinalMonths[month - 1] + days + leapDay;
 }
 
 #endif	//	DATESTAMP_HPP
