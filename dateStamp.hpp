@@ -32,7 +32,7 @@ public:
 	int getOrdinalDayOfYear();
 	int getOrdinalDayOfYear(int date);
 	int convertOrdinalDay(int days);
-	int convertOrdinalDayOfYear(int days);
+	void convertOrdinalDayOfYear(int days);
 	string getWeekday();
 
 	void setYear(int year);
@@ -532,8 +532,6 @@ void dateStamp::convertOrdinalDayOfYear(int days)
 }
 
 #endif	//	DATESTAMP_HPP
-
-//31 minutes
 
 // TODO:
 // setDay should throw a warning, but not an error, when the value exceeds the
