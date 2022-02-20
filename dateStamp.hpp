@@ -40,6 +40,8 @@ public:
 	void setDay(int day);
 	void setDateStamp(int stmp);
 	void setMonthByName(string month);
+	void setOrdinalDay(int days);
+	void setOrdinalDayOfYear();
 
 	int differenceInYears(dateStamp other);
 	int differenceInMonths(dateStamp other);
@@ -516,9 +518,22 @@ int dateStamp::getOrdinalDayOfYear(int date)
 	return ordinalMonths[month - 1] + days + leapDay;
 }
 
+/*
+================================================================================
+Inputs: int days, the number of days from January 1st
+Output: none
+Detail: Given the number of days from January 1st, set the month and day
+accordingly and leave the year as it was before this function was called.
+================================================================================
+*/
+void dateStamp::convertOrdinalDayOfYear(int days)
+{
+
+}
+
 #endif	//	DATESTAMP_HPP
 
-
+//31 minutes
 
 // TODO:
 // setDay should throw a warning, but not an error, when the value exceeds the
