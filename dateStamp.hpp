@@ -528,7 +528,21 @@ accordingly and leave the year as it was before this function was called.
 */
 void dateStamp::convertOrdinalDayOfYear(int days)
 {
+	int month = 0;
+	for(int i = 0; i <= monthsInGregorian; ++i)
+	{
+		if(days - ordinalMonths[i + 1] <= 0)
+		{
+			month = i;
+			break;
+		}
+	}
 
+	cout << "days: " << days << " month: " << (month + 1) << " day of Month: " << (days - ordinalMonths[month]) << endl;
+
+	days -= ordinalMonths[month];
+	setMonth(month + 1);
+	setDay(days + 0);
 }
 
 #endif	//	DATESTAMP_HPP
