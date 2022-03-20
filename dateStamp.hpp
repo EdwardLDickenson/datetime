@@ -179,9 +179,7 @@ void dateStamp::setDateStamp(int stmp)
 
 void dateStamp::addDays(int days)
 {
-	//int year = getYear();
-	//int month = getMonth();
-	//int day = getDay();
+
 }
 
 int dateStamp::differenceInYears(dateStamp other)
@@ -201,9 +199,6 @@ int dateStamp::differenceInMonths(dateStamp other)
 
 int dateStamp::differenceInDays(dateStamp other)
 {
-	//int daysPerYear = 365;
-	//int year = getYear() - 1;
-	//dateStamp unixEpoch(19700101);
 
 	return 0;
 }
@@ -323,7 +318,6 @@ int dateStamp::convertOrdinalDay(int days)
 {
 	// This number is inclusive of leap years and common years including the
 	// 4, 100, and 400 factors to determine if a year is a common or a leap year
-	//cout << "Converting " << days << endl;
 	int daysInFourCent = 146097;
 	int daysInOneCent = 365 * 100 + 24;
 	int daysInFourYears = 365 * 4 + 1;
@@ -337,78 +331,28 @@ int dateStamp::convertOrdinalDay(int days)
 	int yearMultiple = days / (365 + 0);
 	days -= yearMultiple * 365;
 	int daysRemaining = days + 1;
-	//cout << "Leap Multiple: " << leapMultiple << " Year Multiple: " << yearMultiple << " cycleMultiple: " << cycleMultiple << " quarterCycleMultiple: " << quarterCycleMultiple << endl;
 	int year = (cycleMultiple * 400) + (quarterCycleMultiple * 100) + (leapMultiple * 4) + yearMultiple + 1;
-
-/*
-	int fourCentMultiple = (days + 0) / daysInFourCent;
-	int daysMinusFourMultiple = (days + 0) - (fourCentMultiple * daysInFourCent);
-	int leapsInOneCent = 24;
-	int daysInOneCent = 365 * 100 + leapsInOneCent;
-	int centMultiple = (days + 0) / daysInOneCent;
-	int daysMinusOneCentMultiple = daysMinusFourMultiple - (centMultiple * daysInOneCent);
-	int daysInFourYears = 365 * 4 + 1;
-	int fourYearsMultiple = daysMinusOneCentMultiple / daysInFourYears;
-	int daysMinusFourYears = daysMinusOneCentMultiple - (fourYearsMultiple * daysInFourYears);
-	int yearsMultiple = daysMinusFourYears / 365;
-	int daysRemaining = (daysMinusFourYears - (yearsMultiple * 365)) + 1;
-	// Reconstruct the date
-	int year = (fourCentMultiple * 400) + (centMultiple * 100) + (fourYearsMultiple * 4) + yearsMultiple;
-	++year;
-*/
 
 	// The logic for this chunk of code can probably be consolidated into
 	// convertOrdinalDayOfYear
 
 	int month = 0;
-	//while(daysRemaining > 31)
-	/*
-	while(daysRemaining > numberOfDaysByMonth[month])
-	{
-		int daysForThisMonth = numberOfDaysByMonth[month];
-		if(isLeap(year) && ((month + 1) * 100) + daysRemaining == 229)
-		{
-			daysForThisMonth = 29;
-		}
-		daysRemaining -= daysForThisMonth;
-		++month;
-	}
-	++month;
-	*/
 
-	//cout << daysRemaining << endl;
 	bool leap = isLeap(year);
 	if(leap)
 	{
-		//cout << "Executes?" << endl;
 		daysRemaining += 0;
 	}
+
 	int ordinalDays = 0;
-	//cout << "daysRemaining: " << daysRemaining;// << ", ordinalDays: " << ordinalDays << endl;
+
 	for(int i = 0; i <= monthsInGregorian; ++i)
 	{
-		/*int daysInThisMonth = ordinalMonths[i];
-		if(isLeap(year) && ((month + 1) * 100) + daysRemaining == 229)
-		{
-			daysInThisMonth = 29;
-		}
-
-		if(daysRemaining - daysInThisMonth < 0)
-		{
-			month = i;
-			break;
-		}
-		daysRemaining -= daysInThisMonth;
-		month = i;*/
-		//int daysForThisMonth = ordinalMonths[i];
 		ordinalDays = ordinalMonths[i + 1];
-		//bool leap = isLeap(year);
 
 		if(leap)
 		{
 			ordinalDays = ordinalLeapMonths[i + 1];
-			//daysForThisMonth = ordinalLeapMonths[i];
-			//daysRemaining += 1;
 		}
 
 		if(daysRemaining - ordinalDays <= 0)
@@ -418,54 +362,20 @@ int dateStamp::convertOrdinalDay(int days)
 			{
 				ordinalDays = ordinalLeapMonths[i];
 			}
-			//daysRemaining -= ordinalDays;
+
 			month = i + 1;
-			//cout << "\t daysForThisMonth: " << daysForThisMonth << endl;
-			//daysRemaining -= daysForThisMonth;
 			break;
 		}
 	}
-	//cout <<  ", ordinalDays: " << ordinalDays << endl;
+
 	daysRemaining -= (ordinalDays);
-	//cout <<  ", ordinalDays: " << ordinalDays << " " << daysRemaining << endl;
 
-	//cout << daysRemaining << endl;
-
-	/*
-	int multipleOf400 = days / daysIn400Years;
-	int daysMinus400Multiple = daysIn400Years * multipleOf400;
-	int leapYearsIn100CommonYears = 24;
-	int daysIn100CommonYears = 365 * 100 + leapYearsIn100CommonYears;
-	int daysMinus100Multiple = daysMinus400Multiple / daysIn100CommonYears;
-	int daysIn4Years = 365 * 4 + 1;
-	int daysMinus4Multiple = daysIn100CommonYears
-	*/
-
-	//int leapYearsIn400CommonYears = leapYearsIn100CommonYears * 3 + 1;
-	//return year;
-/*
-	cout << "YYYY" << year;
-	year *= 10000;
-	cout << "MM" << month;
-	month *= 100;
-	cout << "DD" << daysRemaining << endl;
-*/
-	if(quarterCycleMultiple == 4)
-	//if(cycleMultiple == 1)
+	if(yearMultiple == 4 || quarterCycleMultiple == 4)
 	{
-		//return (year * 10000) + (month * 100) + (daysRemaining);
-	}
-
-	//if(yearMultiple == 4 && year % 400 != 0) //&& cycleMultiple == 4)
-	if(yearMultiple == 4 || quarterCycleMultiple == 4) //&& cycleMultiple == 4)
-	{
-		//cout << "year: " << year << endl;
 		return ((year - 1) * 10000) + (12 * 100) + (31);
 	}
 
-	//             yyyymmdd
 	return (year * 10000) + (month * 100) + (daysRemaining);
-	//return year + month + daysRemaining;
 }
 
 /*
@@ -491,7 +401,6 @@ int dateStamp::getOrdinalDayOfYear()
 
 	return ordinalMonths[month - 1] + days + leapDay;
 }
-
 
 /*
 ================================================================================
@@ -552,10 +461,6 @@ void dateStamp::convertOrdinalDayOfYear(int days)
 			}
 		}
 	}
-
-	//cout << "days: " << days << " month: " << (month + 1) << " day of Month: " << (days - ordinalMonths[month]) << endl;
-
-	//days -= ordinalMonths[month];
 
 	if(isLeap())
 	{
