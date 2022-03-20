@@ -154,13 +154,6 @@ void testYear(TestGroup &group)
 	group.equal(-1, stamp.getYear());
 }
 
-// This function tests the integrity of the datestamp after performing an
-// operation. It does not perform detailed tests on every operation.
-void testStampIntegrity(TestGroup &group)
-{
-	dateStamp stamp;
-}
-
 void testDifferences(TestGroup &group)
 {
 	dateStamp early;
@@ -341,20 +334,14 @@ void testOrdinalDays(TestGroup &group)
 				int stamp = ((i * 10000) + (j * 100) + k);
 				date.setDateStamp(stamp);
 				stringstream stream;
-				//cout << stamp << endl;
 
-				//
 				stream << "Bad ordinal day. Date Iterated: " << to_string(stamp) << ", Computed: " << to_string(date.getDateStamp());
 				group.equal(dayCount, date.getOrdinalDay(), stream.str());
 
-				//
 				stream.str("");
 
-				//
 				stream << "Bad conversion from ordinal day. Day Iterated: " << dayCount << ", Computed: " << date.getOrdinalDay() << ", Date: "<< stamp;
 				group.equal(date.getDateStamp(), date.convertOrdinalDay(date.getOrdinalDay()), stream.str());
-				//cout << date.convertOrdinalDay(date.getOrdinalDay())<< endl;
-				//date.convertOrdinalDay(date.getOrdinalDay());
 				++dayCount;
 			}
 		}
@@ -453,7 +440,6 @@ int main(int argc, char *argv[])
 	TestGroup dayGroup("Day operations");
 	TestGroup monthGroup("Month operations");
 	TestGroup yearGroup("Year operations");
-	//TestGroup stampIntegrity("Stamp integrity");
 	TestGroup differences("Datestamp differences");
 	TestGroup leaps("Leap Year Formula");
 	TestGroup ordinals("Ordinal Dates");
@@ -465,7 +451,6 @@ int main(int argc, char *argv[])
 	testDay(dayGroup);
 	testMonth(monthGroup);
 	testYear(yearGroup);
-	//testStampIntegrity(stampIntegrity);
 	testDifferences(differences);
 	testLeap(leaps);
 	testOrdinalDays(ordinals);
@@ -475,7 +460,6 @@ int main(int argc, char *argv[])
 	dateTimeSuite.addGroup(dayGroup);
 	dateTimeSuite.addGroup(monthGroup);
 	dateTimeSuite.addGroup(yearGroup);
-	//dateTimeSuite.addGroup(stampIntegrity);
 	dateTimeSuite.addGroup(differences);
 	dateTimeSuite.addGroup(leaps);
 	dateTimeSuite.addGroup(ordinals);
