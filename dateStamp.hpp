@@ -502,7 +502,6 @@ the year in date. Works in the same way as funciton without a parameter, but
 accepts external variables. Datestamp integrity is not checked.
 ================================================================================
 */
-
 int dateStamp::getOrdinalDayOfYear(int date)
 {
 	int month = (date - (int(stamp / 10000) * 10000)) / 100;
@@ -529,20 +528,47 @@ accordingly and leave the year as it was before this function was called.
 void dateStamp::convertOrdinalDayOfYear(int days)
 {
 	int month = 0;
-	for(int i = 0; i <= monthsInGregorian; ++i)
+
+	if(!isLeap())
 	{
-		if(days - ordinalMonths[i + 1] <= 0)
+		for(int i = 0; i <= monthsInGregorian; ++i)
 		{
-			month = i;
-			break;
+			if(days - ordinalMonths[i + 1] <= 0)
+			{
+				month = i;
+				break;
+			}
 		}
 	}
 
-	cout << "days: " << days << " month: " << (month + 1) << " day of Month: " << (days - ordinalMonths[month]) << endl;
+	else
+	{
+		for(int i = 0; i <= monthsInGregorian; ++i)
+		{
+			if(days - ordinalLeapMonths[i + 1] <= 0)
+			{
+				month = i;
+				break;
+			}
+		}
+	}
 
-	days -= ordinalMonths[month];
+	//cout << "days: " << days << " month: " << (month + 1) << " day of Month: " << (days - ordinalMonths[month]) << endl;
+
+	//days -= ordinalMonths[month];
+
+	if(isLeap())
+	{
+		days -= ordinalLeapMonths[month];
+	}
+
+	else
+	{
+		days -= ordinalMonths[month];
+	}
+
+	setDay(days);
 	setMonth(month + 1);
-	setDay(days + 0);
 }
 
 #endif	//	DATESTAMP_HPP

@@ -426,6 +426,7 @@ void testYearOrdinals(TestGroup &group)
 
 	ordinal = 1;
 	date.setYear(1980);
+	ordinalStamp.setYear(1980);
 	for(int i = 1; i <= 12; ++i)
 	{
 		for(int j = 1; j <= numberOfDaysByLeapMonth[i - 1]; ++j)
@@ -434,6 +435,9 @@ void testYearOrdinals(TestGroup &group)
 			date.setDay(j);
 			group.equal(date.getOrdinalDayOfYear(), ordinal);
 			group.equal(date.getOrdinalDayOfYear(date.getDateStamp()), ordinal);
+
+			ordinalStamp.convertOrdinalDayOfYear(ordinal);
+			group.equal(date.getDateStamp(), ordinalStamp.getDateStamp());
 			++ordinal;
 		}
 	}
