@@ -53,6 +53,8 @@ public:
 
 	bool isLeap();
 	bool isLeap(int year);
+	bool isAfterLeapDay();
+	bool isAfterLeapDay(int stmp);
 	int countLeapYears();
 	int countLeapYears(int year);
 };
@@ -474,6 +476,20 @@ void dateStamp::convertOrdinalDayOfYear(int days)
 
 	setDay(days);
 	setMonth(month + 1);
+}
+
+/*
+Inputs: none
+Output: Returns true if the datestamp is after the leapday
+Detail: The leapday is February 29th of any leap year. If the year is not a
+leapyear then this function always returns false. If the datestamp is a leapyear
+and if the day is any day after, non-inclusive, February 29th then this function
+returns true. In ordinal days for any leap year days [0,60] will return false
+while days [61, 366] will return true.
+*/
+bool dateStamp::isAfterLeapDay()
+{
+	return false;
 }
 
 #endif	//	DATESTAMP_HPP
