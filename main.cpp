@@ -430,6 +430,84 @@ void testYearOrdinals(TestGroup &group)
 	}
 }
 
+void testAfterLeap(TestGroup &group)
+{
+	// Default date is January 1st 1970
+	dateStamp date;
+
+	int f = 0;
+	int t = 1;
+
+	for(int j = 1; j <= monthsInGregorian; ++j)
+	{
+		int daysOfMonth = numberOfDaysByMonth[j - 1];
+
+		if(date.isLeap(date.getYear()) && j == 2)
+		{
+			++daysOfMonth;
+		}
+
+		for(int k = 1; k <= daysOfMonth; ++k)
+		{
+			int stamp = ((date.getYear() * 10000) + (j * 100) + k);
+
+			date.setDateStamp(stamp);
+			stringstream stream;
+
+			int val = f;
+			if(date.isAfterLeapDay())
+			{
+				val = t;
+			}
+
+			group.equal(f, val, "Expected isAfterLeapDay to be false for all of 1970");
+		}
+	}
+
+	date.setDateStamp(19800101);
+
+	for(int j = 1; j <= monthsInGregorian; ++j)
+	{
+		int daysOfMonth = numberOfDaysByMonth[j - 1];
+
+		if(date.isLeap(date.getYear()) && j == 2)
+		{
+			++daysOfMonth;
+		}
+
+		for(int k = 1; k <= daysOfMonth; ++k)
+		{
+			int stamp = ((date.getYear() * 10000) + (j * 100) + k);
+
+			date.setDateStamp(stamp);
+			stringstream stream;
+
+			int val = f;
+
+			// Check if we are in March. All days in March are after the leap
+			// day for a leap year
+			if(date.getMonth() <= 2)
+			{
+				if(date.isAfterLeapDay())
+				{
+					val = t;
+				}
+
+				group.equal(f, val, "Expected isAfterLeapDay to be false until March 1st. " + to_string(stamp));
+			}
+			else
+			{
+				if(!date.isAfterLeapDay())
+				{
+					val = f;
+				}
+
+				group.equal(t, val, "Expected isAfterLeapDay to be true on or after March 1st " + to_string(stamp));
+			}
+		}
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	cout << "===\tStarting Program\t===" << endl;
@@ -444,6 +522,7 @@ int main(int argc, char *argv[])
 	TestGroup leaps("Leap Year Formula");
 	TestGroup ordinals("Ordinal Dates");
 	TestGroup yearOrdinals("Ordinal Day Of The Year");
+	TestGroup afterLeap("After Leap Day");
 
 	//	Lookup tables, constants, non-computed values, and compile time values
 	//	not including TMP values.
@@ -455,6 +534,7 @@ int main(int argc, char *argv[])
 	testLeap(leaps);
 	testOrdinalDays(ordinals);
 	testYearOrdinals(yearOrdinals);
+	testAfterLeap(afterLeap);
 
 	dateTimeSuite.addGroup(constants);
 	dateTimeSuite.addGroup(dayGroup);
@@ -464,6 +544,7 @@ int main(int argc, char *argv[])
 	dateTimeSuite.addGroup(leaps);
 	dateTimeSuite.addGroup(ordinals);
 	dateTimeSuite.addGroup(yearOrdinals);
+	dateTimeSuite.addGroup(afterLeap);
 
 	dateTimeSuite.run();
 	dateTimeSuite.write();
