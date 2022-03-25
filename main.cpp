@@ -501,6 +501,10 @@ void testAfterLeap(TestGroup &group)
 				{
 					val = f;
 				}
+				else
+				{
+					val = t;
+				}
 
 				group.equal(t, val, "Expected isAfterLeapDay to be true on or after March 1st " + to_string(stamp));
 			}

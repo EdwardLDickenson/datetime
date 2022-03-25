@@ -489,7 +489,19 @@ while days [61, 366] will return true.
 */
 bool dateStamp::isAfterLeapDay()
 {
-	return false;
+	if(!isLeap())
+	{
+		return false;
+	}
+
+	bool isAfter = false;
+
+	if(getMonth() > 2)
+	{
+		isAfter = true;
+	}
+
+	return isAfter;
 }
 
 #endif	//	DATESTAMP_HPP
