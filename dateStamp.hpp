@@ -32,7 +32,7 @@ public:
 	int getOrdinalDayOfYear();
 	int getOrdinalDayOfYear(int date);
 	int convertOrdinalDay(int days);
-	void convertOrdinalDayOfYear(int days);
+	void setOrdinalDayOfYear(int days);
 	string getWeekday();
 
 	void setYear(int year);
@@ -336,7 +336,7 @@ int dateStamp::convertOrdinalDay(int days)
 	int year = (cycleMultiple * 400) + (quarterCycleMultiple * 100) + (leapMultiple * 4) + yearMultiple + 1;
 
 	// The logic for this chunk of code can probably be consolidated into
-	// convertOrdinalDayOfYear
+	// setOrdinalDayOfYear
 
 	int month = 0;
 
@@ -436,7 +436,7 @@ Detail: Given the number of days from January 1st, set the month and day
 accordingly and leave the year as it was before this function was called.
 ================================================================================
 */
-void dateStamp::convertOrdinalDayOfYear(int days)
+void dateStamp::setOrdinalDayOfYear(int days)
 {
 	int month = 0;
 
